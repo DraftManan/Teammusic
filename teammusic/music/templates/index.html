@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+			<div>
+				<h2 class="text-2xl font-bold mb-2">Popular Artists</h2>
+				<div class="flex space-x-2 overflow-x-auto">
+					<!-- Artist Card -->
+					{% for singer in singer %}
+					<div class="relative group overflow-hidden text-center w-48 flex-shrink-0 p-4 rounded-xl" onclick="window.location.href='{% url 'artist' singer.id %}'">
+						<img src="{% static singer.s3_photourl.url %}" alt="{{ singer.name }}" class="w-42
+						h-42
+						object-cover rounded-full mx-auto">
+						
+						<div class="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+
+						<div class="mt-4 text-left">
+							<span class="font-bold text-white block text-sm">{{ singer.name }}</span>
+							<p class="text-gray-400 text-xs">Artist</p>
+						</div>
+						
+						<!-- ปุ่ม Play ที่มุมขวาล่าง -->
+						<div class="absolute bottom-16 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+							<button class="bg-white text-gray-700 text-lg rounded-full w-10 h-10 flex items-center justify-center">▶️</button>
+						</div>
+					</div>
+					{% endfor %}
+					
+				</div>
+			</div>
+
+
+            <!-- Popular Albums Section -->
+            <div class="mt-10">
+                <h2 class="text-2xl font-bold mb-4">Popular Albums</h2>
+				<div class="flex space-x-2 overflow-x-auto">
+                    <!-- Album Card -->
+					{% for album in album  %}
+
+					<div class="relative group overflow-hidden text-center w-52 flex-shrink-0 p-4 rounded-xl" onclick="window.location.href='{% url 'albums' album.id %}'" >
+						<img src="{% static album.s3_alblumurl.url %}" class="rounded-2xl w-full h-48 object-cover mb-2">
+
+					
+						<div class="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+
+						<div class="mt-4 text-left">
+							<span class="font-bold text-white block text-sm">{{ album.title }}</span>
+							<p class="text-gray-400 text-xs">{{ album.singer }}</p>
+						</div>
+						
+						<!-- ปุ่ม Play ที่มุมขวาล่าง -->
+						<div class="absolute bottom-20 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+							<button class="bg-white text-gray-700 text-lg rounded-full w-10 h-10 flex items-center justify-center">▶️</button>
+						</div>
+					</div>
+					{% endfor %}
+    
+                </div>
+				<div style="height:100px;"></div>
+
+            </div>
+        </div>
+{% endblock %}

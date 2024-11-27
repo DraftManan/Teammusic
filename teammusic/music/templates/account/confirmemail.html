@@ -1,0 +1,66 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignIn</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-amplify/4.3.22/aws-amplify.min.js"></script>
+
+</head>
+<body class="bg-zinc-900 flex items-center justify-center min-h-screen">
+    <div class="flex items-center mt-4">
+        {% if messages %}
+            <div id="message-box" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-white shadow-lg rounded-lg p-4 text-center transition-opacity duration-1000 inline-block max-w-full">
+                {% for message in messages %}
+                    <div class="relative flex items-center justify-center space-x-2 {% if message.tags == 'error' %} text-red-500 {% elif message.tags == 'success' %} text-green-500 {% endif %}">
+                        <div class="text-sm font-medium">{{ message }}</div>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            {% if message.tags == 'error' %}
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            {% elif message.tags == 'success' %}
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            {% endif %}
+                        </svg>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+
+
+    <!-- Right Section -->
+    <div class="flex items-center justify-center w-full md:w-1/2 p-8 bg-white rounded-xl">
+
+      <div class="w-full max-w-md items-center">
+        <img src="{% static "img/email.png" %}" class="max-w-full h-64 py-3 px-24">
+
+        <h2 class="text-3xl font-bold text-gray-900 text-center mb-6">Enter Confirmation Code</h2>
+        <p class="text-gray-900 text-center mb-6">Thank you for you signup, Enter the confirmation code we sent to your email</p>
+        <form method="POST" action="{% url "confirmemail" %}" class="space-y-4">
+          {% csrf_token %}
+          <input type="text" name="username" class="hidden" value="{{ username }}">
+          <div class="relative">
+            <label class="absolute left-3 top-3 text-gray-400">
+                <svg class="h-6 w-6 text-gray-400"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                  </svg>
+                    </label>
+            <input type="text" name="confirmation_code" placeholder="Confirmation Code" class="pl-10 w-full py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-transparent" required/>
+          </div>
+          <button type="submit" class="w-full bg-zinc-900 text-white py-3 rounded-xl font-semibold hover:bg-zinc-700 transition duration-300">Confirm email</button>
+        </form>
+
+        <p class="text-center text-gray-600 text-sm mt-4">
+           Have an account? <a href="{% url "signin" %}" class="text-blue-500 font-semibold">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-amplify/4.3.22/aws-amplify.min.js"></script>
+  <script src="{% static "script/signin.js" %}"></script>
+</body>
+</html>

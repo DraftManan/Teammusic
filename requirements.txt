@@ -1,0 +1,11 @@
+django-environ
+tailwind
+django_browser_reload
+psycopg-binary
+jwt
+gunicorn
+boto3
+Pillow
+django-redis
+psycopg
+PyJWT

@@ -1,0 +1,7 @@
+.gradient-background {
+    background: linear-gradient(to bottom, #242424, rgba(0, 0, 0, 0.6));
+    width: 80px; /* ปรับความกว้างตามต้องการ */
+    height: 100vh; /* ความสูงเต็มหน้าจอ */
+    border-top-right-radius: 20px; /* โค้งมุมบนขวา */
+    border-bottom-right-radius: 20px; /* โค้งมุมล่างขวา */
+}
